@@ -1,0 +1,62 @@
+package com.br.ifma.logeasy.domain;
+
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+
+/**
+ * The persistent class for the grupoconteudos_aluno database table.
+ * 
+ */
+@Entity
+@Table(name="curso_aluno")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class CursoAluno extends AbstractDomainClass implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	private int pontuacao;
+
+	//bi-directional many-to-one association to Aluno
+	@ManyToOne
+	@JoinColumn(name="idaluno")
+	@JsonManagedReference
+	private Aluno aluno;
+
+	//bi-directional many-to-one association to GrupoConteudo
+	@ManyToOne
+	@JoinColumn(name="idcurso")
+	@JsonManagedReference
+	private Curso curso;
+
+	public int getPontuacao() {
+		return this.pontuacao;
+	}
+
+	public void setPontuacao(int pontuacao) {
+		this.pontuacao = pontuacao;
+	}
+
+	public Aluno getAluno() {
+		return this.aluno;
+	}
+
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
+
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
+}
