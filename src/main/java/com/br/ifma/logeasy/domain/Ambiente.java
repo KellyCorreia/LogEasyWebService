@@ -8,9 +8,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 
 /**
  * The persistent class for the tema database table.
@@ -27,12 +24,10 @@ public class Ambiente extends AbstractDomainClass implements Serializable {
 
 	//bi-directional many-to-one association to Nivel
 	@OneToOne(mappedBy="ambiente")
-	@JsonManagedReference
 	private Nivel nivel;
 
 	//bi-directional many-to-one association to TemaAvatar
 	@OneToMany(mappedBy="ambiente")
-	@JsonBackReference
 	private List<AmbienteAvatar> AmbientesAvatar;
 
 	public Ambiente() {

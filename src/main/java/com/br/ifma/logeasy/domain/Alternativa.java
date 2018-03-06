@@ -9,9 +9,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 
 /**
  * The persistent class for the alternativa database table.
@@ -28,12 +25,10 @@ public class Alternativa extends AbstractDomainClass implements Serializable {
 	//bi-directional many-to-one association to Questao
 	@ManyToOne
 	@JoinColumn(name="idquestao", referencedColumnName = "id", nullable = false)
-	@JsonManagedReference
 	private Questao questao;
 
 	//bi-directional many-to-one association to AlternativaAluno
 	@OneToMany(mappedBy="alternativa")
-	@JsonBackReference
 	private List<AlternativaAluno> alternativaAlunos;
 
 	public Alternativa() {

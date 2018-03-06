@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Created by jt on 12/14/15.
@@ -36,7 +36,7 @@ public class User extends AbstractDomainClass {
     @JoinTable
     // ~ defaults to @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "user_id"),
     //     inverseJoinColumns = @joinColumn(name = "role_id"))
-    @JsonBackReference
+    @JsonIgnore
     private List<Role> roles = new ArrayList<>();
     private Integer failedLoginAttempts = 0;
 

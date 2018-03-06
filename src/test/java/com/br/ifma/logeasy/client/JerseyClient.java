@@ -83,8 +83,8 @@ public class JerseyClient {
 	
 	public static void main(String[] args) {
 		JerseyClient jerseyClient = new JerseyClient();
-	    jerseyClient.getProfessorDetails();
-		//jerseyClient.getProfessorById(102);
+	    //jerseyClient.getProfessorDetails();
+		jerseyClient.getProfessorById(1);
 		
 		//Professor professor = new Professor();
 		//professor.setTitle("Spring REST Security using Hibernate2");

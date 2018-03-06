@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 
 /**
  * The persistent class for the disciplina database table.
@@ -25,7 +23,6 @@ public class Disciplina extends AbstractDomainClass implements Serializable {
 
 	//bi-directional many-to-one association to Grupoconteudo
 	@OneToMany(mappedBy="disciplina")
-	@JsonBackReference
 	private List<Curso> cursos;
 
 	public Disciplina() {

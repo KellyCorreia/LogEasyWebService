@@ -8,8 +8,6 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 /**
  * Created by jt on 12/18/15.
  */
@@ -22,7 +20,6 @@ public class Role extends AbstractDomainClass {
     @JoinTable
     // ~ defaults to @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "role_id"),
     //     inverseJoinColumns = @joinColumn(name = "user_id"))
-    @JsonBackReference
     private List<User> users = new ArrayList<>();
 
     public String getRole() {

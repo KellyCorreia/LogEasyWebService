@@ -11,9 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 /**
  * The persistent class for the conteudo database table.
  * 
@@ -33,27 +30,23 @@ public class Conteudo extends AbstractDomainClass implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="idprofessor")
 	@Basic(fetch = FetchType.LAZY)
-	@JsonManagedReference
 	private Professor professor;
 	
 	//bi-directional many-to-one association to GrupoConteudo
 	@ManyToOne
 	@JoinColumn(name="idcurso", insertable=false, updatable=false)
 	@Basic(fetch = FetchType.LAZY)
-	@JsonManagedReference
 	private Curso curso;
 		
 	//bi-directional many-to-one association to Nivel
 	@ManyToOne
 	@JoinColumn(name="idnivel")
 	@Basic(fetch = FetchType.LAZY)
-	@JsonManagedReference
 	private Nivel nivel;
 
 	//bi-directional many-to-one association to Questao
 	@OneToMany(mappedBy="conteudo")
 	@Basic(fetch = FetchType.LAZY)
-	@JsonBackReference
 	private List<Questao> questoes;
 
 	public Conteudo() {

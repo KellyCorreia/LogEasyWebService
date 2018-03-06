@@ -8,8 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 
 /**
  * The persistent class for the alternativa_aluno database table.
@@ -23,13 +21,11 @@ public class AlternativaAluno extends AbstractDomainClass implements Serializabl
 	//bi-directional many-to-one association to Alternativa
 	@ManyToOne
 	@JoinColumn(name="idalternativa")
-	@JsonManagedReference
 	private Alternativa alternativa;
 
 	//bi-directional many-to-one association to Aluno
 	@ManyToOne
 	@JoinColumn(name="idaluno")
-	@JsonManagedReference
 	private Aluno aluno;
 	
 	private Calendar dataHora;

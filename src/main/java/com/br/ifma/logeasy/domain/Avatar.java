@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 
 /**
  * The persistent class for the avatar database table.
@@ -24,12 +22,10 @@ public class Avatar extends AbstractDomainClass implements Serializable {
 
 	//bi-directional many-to-one association to Aluno
 	@OneToMany(mappedBy="avatar")
-	@JsonManagedReference
 	private List<Aluno> alunos;
 
 	//bi-directional many-to-one association to TemaAvatar
 	@OneToMany(mappedBy="avatar")
-	@JsonManagedReference
 	private List<AmbienteAvatar> ambientesAvatar;
 
 	public Avatar() {

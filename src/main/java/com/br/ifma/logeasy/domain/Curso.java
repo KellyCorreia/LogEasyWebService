@@ -12,7 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 /**
@@ -31,12 +30,10 @@ public class Curso extends AbstractDomainClass implements Serializable {
 	//bi-directional many-to-one association to Disciplina
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.LAZY)
 	@JoinColumn(name="iddisciplina")
-	@JsonManagedReference
 	private Disciplina disciplina;
 
 	//bi-directional many-to-one association to CursoAluno
 	@OneToMany(mappedBy="curso")
-	@JsonBackReference
 	private List<CursoAluno> alunosCurso;
 	
 	@OneToMany(mappedBy="curso", cascade = CascadeType.ALL)

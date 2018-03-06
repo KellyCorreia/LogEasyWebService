@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
@@ -24,6 +24,12 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name="professor")
 public class Professor extends AbstractDomainClass implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Breve explicação:
+	 * @JsonManagedReference: coloco na relação que eu quero trazer na consulta do webservice e
+	 * @JsonBackReference: coloco na relação que eu quero ignorar na consulta do webservice
+	 */
 
 	private String codigo;
 	private String nome;
@@ -36,7 +42,7 @@ public class Professor extends AbstractDomainClass implements Serializable {
 	//bi-directional many-to-one association to Conteudo
 	@OneToMany(mappedBy="professor")
 	@Basic(fetch = FetchType.LAZY)
-	@JsonBackReference
+	@JsonIgnore
 	private List<Conteudo> conteudos;
 
 	public Professor() {

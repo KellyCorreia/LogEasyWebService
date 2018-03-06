@@ -7,8 +7,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 
 /**
  * The persistent class for the tema_avatar database table.
@@ -24,13 +22,11 @@ public class AmbienteAvatar extends AbstractDomainClass implements Serializable 
 	//bi-directional many-to-one association to Avatar
 	@ManyToOne
 	@JoinColumn(name="idavatar")
-	@JsonManagedReference
 	private Avatar avatar;
 
 	//bi-directional many-to-one association to Tema
 	@ManyToOne
 	@JoinColumn(name="idambiente")
-	@JsonManagedReference
 	private Ambiente ambiente;
 
 	public AmbienteAvatar() {

@@ -12,9 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 
 /**
  * The persistent class for the aluno database table.
@@ -30,23 +27,19 @@ public class Aluno extends AbstractDomainClass implements Serializable {
 	
 	 @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
      @JoinColumn(name="idusuario")
-	 @JsonManagedReference
 	 private User usuario;
 	 
 	//bi-directional many-to-one association to Avatar
 	@ManyToOne
 	@JoinColumn(name="idavatar")
-	@JsonManagedReference
 	private Avatar avatar;
 
 	//bi-directional many-to-one association to AlternativaAluno
 	@OneToMany(mappedBy="aluno")
-	@JsonBackReference
 	private List<AlternativaAluno> alternativasAluno;
 
 	//bi-directional many-to-one association to GrupoConteudosAluno
 	@OneToMany(mappedBy="aluno")
-	@JsonBackReference
 	private List<CursoAluno> cursosAluno;
 
 	public Aluno() {

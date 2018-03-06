@@ -10,9 +10,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 
 /**
  * The persistent class for the nivel database table.
@@ -36,11 +33,9 @@ public class Nivel extends AbstractDomainClass implements Serializable {
 	//bi-directional many-to-one association to Tema
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="idambiente")
-	@JsonManagedReference
 	private Ambiente ambiente;
 	
 	@OneToMany(mappedBy="nivel")
-	@JsonBackReference
 	private List<Conteudo> conteudos; 
 
 	public Nivel() {

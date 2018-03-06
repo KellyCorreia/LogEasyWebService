@@ -7,10 +7,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 
 /**
  * The persistent class for the grupoconteudos_aluno database table.
@@ -18,7 +14,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  */
 @Entity
 @Table(name="curso_aluno")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class CursoAluno extends AbstractDomainClass implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -27,13 +22,11 @@ public class CursoAluno extends AbstractDomainClass implements Serializable {
 	//bi-directional many-to-one association to Aluno
 	@ManyToOne
 	@JoinColumn(name="idaluno")
-	@JsonManagedReference
 	private Aluno aluno;
 
 	//bi-directional many-to-one association to GrupoConteudo
 	@ManyToOne
 	@JoinColumn(name="idcurso")
-	@JsonManagedReference
 	private Curso curso;
 
 	public int getPontuacao() {
