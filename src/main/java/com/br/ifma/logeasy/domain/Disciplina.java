@@ -7,6 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Proxy;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 /**
  * The persistent class for the disciplina database table.
@@ -14,6 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="disciplina")
+@Proxy(lazy = false)
 public class Disciplina extends AbstractDomainClass implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -23,6 +28,7 @@ public class Disciplina extends AbstractDomainClass implements Serializable {
 
 	//bi-directional many-to-one association to Grupoconteudo
 	@OneToMany(mappedBy="disciplina")
+	@JsonManagedReference(value="cursos")
 	private List<Curso> cursos;
 
 	public Disciplina() {

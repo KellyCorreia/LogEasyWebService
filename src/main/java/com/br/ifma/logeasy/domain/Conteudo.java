@@ -11,6 +11,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /**
  * The persistent class for the conteudo database table.
  * 
@@ -30,23 +34,26 @@ public class Conteudo extends AbstractDomainClass implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="idprofessor")
 	@Basic(fetch = FetchType.LAZY)
+	@JsonIgnore
 	private Professor professor;
 	
 	//bi-directional many-to-one association to GrupoConteudo
 	@ManyToOne
 	@JoinColumn(name="idcurso", insertable=false, updatable=false)
 	@Basic(fetch = FetchType.LAZY)
+	@JsonBackReference(value="conteudos")
 	private Curso curso;
 		
 	//bi-directional many-to-one association to Nivel
 	@ManyToOne
 	@JoinColumn(name="idnivel")
 	@Basic(fetch = FetchType.LAZY)
+	@JsonBackReference(value="conteudos-nivel")
 	private Nivel nivel;
 
 	//bi-directional many-to-one association to Questao
-	@OneToMany(mappedBy="conteudo")
-	@Basic(fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="conteudo", fetch = FetchType.EAGER)
+	@JsonManagedReference(value="questoes")
 	private List<Questao> questoes;
 
 	public Conteudo() {
@@ -75,14 +82,6 @@ public class Conteudo extends AbstractDomainClass implements Serializable{
 
 	public void setProfessor(Professor professor) {
 		this.professor = professor;
-	}
-
-	public Curso getGrupoConteudo() {
-		return curso;
-	}
-
-	public void setGrupoConteudo(Curso grupoConteudo) {
-		this.curso = grupoConteudo;
 	}
 
 	public Nivel getNivel() {

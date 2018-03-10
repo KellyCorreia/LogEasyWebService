@@ -4,9 +4,13 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -24,10 +28,12 @@ public class Ambiente extends AbstractDomainClass implements Serializable {
 
 	//bi-directional many-to-one association to Nivel
 	@OneToOne(mappedBy="ambiente")
+	@JsonBackReference(value="ambiente")
 	private Nivel nivel;
 
 	//bi-directional many-to-one association to TemaAvatar
-	@OneToMany(mappedBy="ambiente")
+	@OneToMany(mappedBy="ambiente", fetch=FetchType.EAGER)
+	@JsonIgnore
 	private List<AmbienteAvatar> AmbientesAvatar;
 
 	public Ambiente() {

@@ -12,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 /**
  * The persistent class for the questao database table.
@@ -28,10 +31,12 @@ public class Questao extends AbstractDomainClass implements Serializable {
 	//bi-directional many-to-one association to Conteudo
 	@ManyToOne
 	@JoinColumn(name="idconteudo")
+	@JsonBackReference(value="questoes")
 	private Conteudo conteudo;
 
 	//bi-directional many-to-one association to Alternativa
 	@OneToMany(cascade = CascadeType.MERGE, mappedBy="questao", fetch = FetchType.EAGER)
+	@JsonManagedReference(value="alternativas")
 	private List<Alternativa> alternativas;
 
 	public Questao() {

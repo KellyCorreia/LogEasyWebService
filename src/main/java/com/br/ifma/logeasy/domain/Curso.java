@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 /**
@@ -30,17 +32,17 @@ public class Curso extends AbstractDomainClass implements Serializable {
 	//bi-directional many-to-one association to Disciplina
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.LAZY)
 	@JoinColumn(name="iddisciplina")
+	@JsonBackReference(value="cursos")
 	private Disciplina disciplina;
 
 	//bi-directional many-to-one association to CursoAluno
 	@OneToMany(mappedBy="curso")
+	@JsonIgnore
 	private List<CursoAluno> alunosCurso;
 	
-	@OneToMany(mappedBy="curso", cascade = CascadeType.ALL)
-	@JsonBackReference
+	@OneToMany(mappedBy="curso", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@JsonManagedReference(value="conteudos")
 	private List<Conteudo> conteudos;
-	
-	
 
 	public Curso() {
 		this.disciplina = new Disciplina();
@@ -62,14 +64,6 @@ public class Curso extends AbstractDomainClass implements Serializable {
 		this.disciplina = disciplina;
 	}
 
-	public List<CursoAluno> getGrupoConteudosAlunos() {
-		return alunosCurso;
-	}
-
-	public void setGrupoConteudosAlunos(List<CursoAluno> cursosAlunos) {
-		this.alunosCurso = cursosAlunos;
-	}
-
 	public String getCodigo() {
 		return codigo;
 	}
@@ -84,14 +78,6 @@ public class Curso extends AbstractDomainClass implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public List<CursoAluno> getCursosAlunos() {
-		return alunosCurso;
-	}
-
-	public void setCursosAlunos(List<CursoAluno> cursosAlunos) {
-		this.alunosCurso = cursosAlunos;
 	}
 
 	public List<CursoAluno> getAlunosCurso() {
