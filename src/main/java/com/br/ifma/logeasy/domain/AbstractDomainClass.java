@@ -1,7 +1,16 @@
 package com.br.ifma.logeasy.domain;
 
-import javax.persistence.*;
 import java.util.Date;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Version;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by jt on 12/16/15.
@@ -11,6 +20,7 @@ public class AbstractDomainClass implements DomainObject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonProperty("id")
     protected Integer id;
 
     @Version

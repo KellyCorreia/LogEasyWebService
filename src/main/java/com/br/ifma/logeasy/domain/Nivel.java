@@ -10,7 +10,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 /**
@@ -19,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
  */
 @Entity
 @Table(name="nivel")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id", scope=Nivel.class)
 public class Nivel extends AbstractDomainClass implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -35,11 +38,10 @@ public class Nivel extends AbstractDomainClass implements Serializable {
 	//bi-directional many-to-one association to Tema
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="idambiente")
-	@JsonManagedReference(value="ambiente")
 	private Ambiente ambiente;
 	
 	@OneToMany(mappedBy="nivel")
-	@JsonManagedReference(value="conteudos-nivel")
+	@JsonIgnore
 	private List<Conteudo> conteudos; 
 
 	public Nivel() {

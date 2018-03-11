@@ -12,6 +12,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 /**
  * The persistent class for the aluno database table.
@@ -19,6 +23,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="aluno")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id", scope=Aluno.class)
 public class Aluno extends AbstractDomainClass implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -40,6 +45,7 @@ public class Aluno extends AbstractDomainClass implements Serializable {
 
 	//bi-directional many-to-one association to GrupoConteudosAluno
 	@OneToMany(mappedBy="aluno")
+	@JsonIgnore
 	private List<CursoAluno> cursosAluno;
 
 	public Aluno() {

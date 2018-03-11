@@ -12,8 +12,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 /**
@@ -22,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
  */
 @Entity
 @Table(name="professor")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id", scope=Professor.class)
 public class Professor extends AbstractDomainClass implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -36,7 +38,6 @@ public class Professor extends AbstractDomainClass implements Serializable {
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="idusuario")
-	@JsonManagedReference
 	private User usuario;
 	
 	//bi-directional many-to-one association to Conteudo

@@ -9,8 +9,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 /**
@@ -19,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name="alternativa")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id", scope=Alternativa.class)
 public class Alternativa extends AbstractDomainClass implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -28,7 +30,7 @@ public class Alternativa extends AbstractDomainClass implements Serializable {
 	//bi-directional many-to-one association to Questao
 	@ManyToOne
 	@JoinColumn(name="idquestao", referencedColumnName = "id", nullable = false)
-	@JsonBackReference(value="alternativas")
+	@JsonIgnore
 	private Questao questao;
 
 	//bi-directional many-to-one association to AlternativaAluno

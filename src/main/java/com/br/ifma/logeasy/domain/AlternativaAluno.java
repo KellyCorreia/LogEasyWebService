@@ -8,6 +8,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 /**
  * The persistent class for the alternativa_aluno database table.
@@ -15,6 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="alternativa_aluno")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id", scope=AlternativaAluno.class)
 public class AlternativaAluno extends AbstractDomainClass implements Serializable {
 	private static final long serialVersionUID = 1L;
 

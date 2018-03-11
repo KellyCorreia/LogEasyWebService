@@ -10,20 +10,22 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * Created by jt on 12/14/15.
  */
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id", scope=User.class)
 public class User extends AbstractDomainClass {
 
     private String username;
     private String email;
     
     @OneToOne(mappedBy="usuario")
-    @JsonBackReference
+    @JsonIgnore
     private Professor professor;
 
     @Transient

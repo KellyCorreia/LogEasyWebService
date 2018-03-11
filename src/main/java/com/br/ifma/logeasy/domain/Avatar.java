@@ -7,6 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 /**
  * The persistent class for the avatar database table.
@@ -14,6 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="avatar")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id", scope=Avatar.class)
 public class Avatar extends AbstractDomainClass implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -22,6 +27,7 @@ public class Avatar extends AbstractDomainClass implements Serializable {
 
 	//bi-directional many-to-one association to Aluno
 	@OneToMany(mappedBy="avatar")
+	@JsonIgnore
 	private List<Aluno> alunos;
 
 	//bi-directional many-to-one association to TemaAvatar

@@ -82,8 +82,9 @@ public class JerseyClient {
 		WebTarget cursoById = base.path("{id}").resolveTemplate("id", cursoId);
 		Curso curso = cursoById.request(MediaType.APPLICATION_JSON).get(Curso.class);
 		
-		System.out.println(curso.getId()+", "+ curso.getNome());
-		System.out.println(curso.getConteudos());
+		System.out.println("CURSO==>" + curso.getId()+", "+ curso.getNome());
+		System.out.println("CONTEUDOS==>" + curso.getConteudos());
+		System.out.println("DISCIPLINA==>" + curso.getDisciplina());
         
 	    client.close();
 	}
@@ -91,8 +92,8 @@ public class JerseyClient {
 	public static void main(String[] args) {
 		JerseyClient jerseyClient = new JerseyClient();
 	    //jerseyClient.getProfessorDetails();
-		//jerseyClient.getProfessorById(1);
-		jerseyClient.getCursoById(1);
+		jerseyClient.getProfessorById(1);
+		//jerseyClient.getCursoById(1);
 		
 		/*
 		User user = new User();

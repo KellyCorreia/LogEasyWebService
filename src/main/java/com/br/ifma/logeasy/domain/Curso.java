@@ -11,9 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 /**
@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
  */
 @Entity
 @Table(name="curso")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id", scope=Curso.class)
 public class Curso extends AbstractDomainClass implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -30,9 +31,8 @@ public class Curso extends AbstractDomainClass implements Serializable {
     private String descricao;
 
 	//bi-directional many-to-one association to Disciplina
-	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
 	@JoinColumn(name="iddisciplina")
-	@JsonBackReference(value="cursos")
 	private Disciplina disciplina;
 
 	//bi-directional many-to-one association to CursoAluno
@@ -41,7 +41,6 @@ public class Curso extends AbstractDomainClass implements Serializable {
 	private List<CursoAluno> alunosCurso;
 	
 	@OneToMany(mappedBy="curso", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-	@JsonManagedReference(value="conteudos")
 	private List<Conteudo> conteudos;
 
 	public Curso() {

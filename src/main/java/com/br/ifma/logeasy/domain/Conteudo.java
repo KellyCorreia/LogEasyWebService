@@ -11,9 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * The persistent class for the conteudo database table.
@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
  */
 @Entity
 @Table(name="conteudo")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id", scope=Conteudo.class)
 public class Conteudo extends AbstractDomainClass implements Serializable{
 	private static final long serialVersionUID = 1L;
 
@@ -40,20 +41,16 @@ public class Conteudo extends AbstractDomainClass implements Serializable{
 	//bi-directional many-to-one association to GrupoConteudo
 	@ManyToOne
 	@JoinColumn(name="idcurso", insertable=false, updatable=false)
-	@Basic(fetch = FetchType.LAZY)
-	@JsonBackReference(value="conteudos")
+	@JsonIgnore
 	private Curso curso;
 		
 	//bi-directional many-to-one association to Nivel
 	@ManyToOne
 	@JoinColumn(name="idnivel")
-	@Basic(fetch = FetchType.LAZY)
-	@JsonBackReference(value="conteudos-nivel")
 	private Nivel nivel;
 
 	//bi-directional many-to-one association to Questao
 	@OneToMany(mappedBy="conteudo", fetch = FetchType.EAGER)
-	@JsonManagedReference(value="questoes")
 	private List<Questao> questoes;
 
 	public Conteudo() {

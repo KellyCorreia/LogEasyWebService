@@ -4,12 +4,13 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Proxy;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 /**
@@ -18,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
  */
 @Entity
 @Table(name="disciplina")
-@Proxy(lazy = false)
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id", scope=Disciplina.class)
 public class Disciplina extends AbstractDomainClass implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -27,8 +28,8 @@ public class Disciplina extends AbstractDomainClass implements Serializable {
 	 private String descricao;
 
 	//bi-directional many-to-one association to Grupoconteudo
-	@OneToMany(mappedBy="disciplina")
-	@JsonManagedReference(value="cursos")
+	@OneToMany(mappedBy="disciplina", fetch=FetchType.EAGER)
+	@JsonIgnore
 	private List<Curso> cursos;
 
 	public Disciplina() {
@@ -68,6 +69,11 @@ public class Disciplina extends AbstractDomainClass implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	
+	@Override
+	public String toString() {
+		return this.id + " - " + this.codigo + " - " + this.descricao;
 	}
 
 }
