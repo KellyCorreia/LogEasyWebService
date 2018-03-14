@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -31,7 +32,7 @@ public class Avatar extends AbstractDomainClass implements Serializable {
 	private List<Aluno> alunos;
 
 	//bi-directional many-to-one association to TemaAvatar
-	@OneToMany(mappedBy="avatar")
+	@OneToMany(mappedBy="avatar", fetch = FetchType.EAGER)
 	private List<AmbienteAvatar> ambientesAvatar;
 
 	public Avatar() {

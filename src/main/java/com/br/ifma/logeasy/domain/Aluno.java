@@ -12,6 +12,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -40,7 +43,8 @@ public class Aluno extends AbstractDomainClass implements Serializable {
 	private Avatar avatar;
 
 	//bi-directional many-to-one association to AlternativaAluno
-	@OneToMany(mappedBy="aluno")
+	@OneToMany(mappedBy="aluno", fetch=FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
 	private List<AlternativaAluno> alternativasAluno;
 
 	//bi-directional many-to-one association to GrupoConteudosAluno

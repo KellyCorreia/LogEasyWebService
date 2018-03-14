@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -29,8 +28,6 @@ public class Alternativa extends AbstractDomainClass implements Serializable {
 
 	//bi-directional many-to-one association to Questao
 	@ManyToOne
-	@JoinColumn(name="idquestao", referencedColumnName = "id", nullable = false)
-	@JsonIgnore
 	private Questao questao;
 
 	//bi-directional many-to-one association to AlternativaAluno

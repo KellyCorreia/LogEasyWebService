@@ -10,6 +10,7 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.br.ifma.logeasy.domain.Aluno;
 import com.br.ifma.logeasy.domain.Curso;
 import com.br.ifma.logeasy.domain.Professor;
 
@@ -89,11 +90,23 @@ public class JerseyClient {
 	    client.close();
 	}
 	
+	public void getAlunos() {
+		Client client = ClientBuilder.newClient();
+		WebTarget base = client.target("http://localhost:8080/logeasy-webservice/aluno");
+		WebTarget details = base.path("alunos");
+		List<Aluno> list = details.request(MediaType.APPLICATION_JSON).get(new GenericType<List<Aluno>>() {});
+		
+	    list.stream().forEach(aluno -> System.out.println(aluno.getId()+", "+ aluno.getNome()));
+	    
+	    client.close();
+	}
+	
 	public static void main(String[] args) {
 		JerseyClient jerseyClient = new JerseyClient();
 	    //jerseyClient.getProfessorDetails();
-		jerseyClient.getProfessorById(1);
+		//jerseyClient.getProfessorById(1);
 		//jerseyClient.getCursoById(1);
+		jerseyClient.getAlunos();
 		
 		/*
 		User user = new User();
