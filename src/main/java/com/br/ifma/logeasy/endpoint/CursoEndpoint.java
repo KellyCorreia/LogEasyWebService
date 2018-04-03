@@ -12,8 +12,13 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.br.ifma.logeasy.domain.AmbienteAvatar;
+import com.br.ifma.logeasy.domain.Avatar;
 import com.br.ifma.logeasy.domain.Curso;
+import com.br.ifma.logeasy.domain.Nivel;
+import com.br.ifma.logeasy.services.AvatarService;
 import com.br.ifma.logeasy.services.CursoService;
+import com.br.ifma.logeasy.services.NivelService;
 import com.br.ifma.logeasy.utils.Utils;
 
 @Component
@@ -21,6 +26,8 @@ import com.br.ifma.logeasy.utils.Utils;
 public class CursoEndpoint {
 
 	private CursoService cursoService;
+	private NivelService nivelService;
+	private AvatarService avatarService;
 	
 	@GET
 	@Path("/cursos")
@@ -38,8 +45,40 @@ public class CursoEndpoint {
 		return Response.ok(curso).build();
 	}
 	
+	@GET
+	@Path("/niveis")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getNiveis() {
+		List<Nivel> list = Utils.toList(nivelService.listAllNiveis()); 
+		for(Nivel n : list) {
+			for(AmbienteAvatar aa : n.getAmbiente().getAmbientesAvatar()) {
+				System.out.println("avatar: " + aa.getAvatar().getId());
+				System.out.println("avatar: " + aa.getAvatar().getNome());
+				System.out.println("avatar: " + aa.getAvatar().getCaracteristica());
+			}
+		}
+		return Response.ok(list).build();
+	}
+	
+	@GET
+	@Path("/avatars")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAvatars() {
+		List<Avatar> list = Utils.toList(avatarService.listAllAvatars()); 
+		return Response.ok(list).build();
+	}
+	
 	@Autowired
     public void setCursoService(CursoService cursoService) {
         this.cursoService = cursoService;
     }
+	@Autowired
+	public void setNivelService(NivelService nivelService) {
+		this.nivelService = nivelService;
+	}
+	@Autowired
+	public void setAvatarService(AvatarService avatarService) {
+		this.avatarService = avatarService;
+	}
+	
 }

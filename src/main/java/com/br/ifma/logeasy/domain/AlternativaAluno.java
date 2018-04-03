@@ -3,12 +3,16 @@ package com.br.ifma.logeasy.domain;
 import java.io.Serializable;
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
@@ -23,12 +27,13 @@ public class AlternativaAluno extends AbstractDomainClass implements Serializabl
 	private static final long serialVersionUID = 1L;
 
 	//bi-directional many-to-one association to Alternativa
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="idalternativa")
+	@JsonIgnore
 	private Alternativa alternativa;
 
 	//bi-directional many-to-one association to Aluno
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="idaluno")
 	private Aluno aluno;
 	

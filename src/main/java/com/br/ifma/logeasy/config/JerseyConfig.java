@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.br.ifma.logeasy.endpoint.AlunoEndpoint;
 import com.br.ifma.logeasy.endpoint.CursoEndpoint;
+import com.br.ifma.logeasy.endpoint.NivelEndpoint;
 import com.br.ifma.logeasy.endpoint.ProfessorEndpoint;
 
 @Component
@@ -16,5 +17,6 @@ public class JerseyConfig extends ResourceConfig {
 		register(ProfessorEndpoint.class);
 		register(CursoEndpoint.class);
 		register(AlunoEndpoint.class);
+		register(NivelEndpoint.class);
 	}
 }

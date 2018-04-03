@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -28,11 +30,12 @@ public class Alternativa extends AbstractDomainClass implements Serializable {
 
 	//bi-directional many-to-one association to Questao
 	@ManyToOne
+	@JoinColumn(name="idquestao")
 	private Questao questao;
 
 	//bi-directional many-to-one association to AlternativaAluno
-	@OneToMany(mappedBy="alternativa")
-	@JsonIgnore
+	@OneToMany(mappedBy="alternativa", fetch = FetchType.EAGER)
+	//@JsonIgnore
 	private List<AlternativaAluno> alternativaAlunos;
 
 	public Alternativa() {
@@ -70,18 +73,6 @@ public class Alternativa extends AbstractDomainClass implements Serializable {
 
 	public void setAlternativaAlunos(List<AlternativaAluno> alternativaAlunos) {
 		this.alternativaAlunos = alternativaAlunos;
-	}
-	
-	@Override
-	public boolean equals(Object obj){
-		Alternativa alt = (Alternativa) obj;
-		
-		return alt.getTexto().equals(this.getTexto());
-	}
-	
-	@Override
-	public int hashCode() {
-		return this.texto.hashCode();
 	}
 
 }

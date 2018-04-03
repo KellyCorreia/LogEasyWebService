@@ -38,12 +38,12 @@ public class Aluno extends AbstractDomainClass implements Serializable {
 	 private User usuario;
 	 
 	//bi-directional many-to-one association to Avatar
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="idavatar")
 	private Avatar avatar;
 
 	//bi-directional many-to-one association to AlternativaAluno
-	@OneToMany(mappedBy="aluno", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="aluno", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@Fetch(value = FetchMode.SUBSELECT)
 	private List<AlternativaAluno> alternativasAluno;
 

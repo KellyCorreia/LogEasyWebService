@@ -33,6 +33,7 @@ public class Avatar extends AbstractDomainClass implements Serializable {
 
 	//bi-directional many-to-one association to TemaAvatar
 	@OneToMany(mappedBy="avatar", fetch = FetchType.EAGER)
+	@JsonIgnore
 	private List<AmbienteAvatar> ambientesAvatar;
 
 	public Avatar() {

@@ -35,8 +35,8 @@ public class Ambiente extends AbstractDomainClass implements Serializable {
 
 	//bi-directional many-to-one association to TemaAvatar
 	@OneToMany(mappedBy="ambiente", fetch=FetchType.EAGER)
-	@JsonIgnore
-	private List<AmbienteAvatar> AmbientesAvatar;
+	//@JsonIgnore
+	private List<AmbienteAvatar> ambientesAvatar;
 
 	public Ambiente() {
 	}
@@ -74,11 +74,11 @@ public class Ambiente extends AbstractDomainClass implements Serializable {
 	}
 
 	public List<AmbienteAvatar> getAmbientesAvatar() {
-		return AmbientesAvatar;
+		return ambientesAvatar;
 	}
 
 	public void setAmbientesAvatar(List<AmbienteAvatar> ambientesAvatar) {
-		AmbientesAvatar = ambientesAvatar;
+		this.ambientesAvatar = ambientesAvatar;
 	}
 
 }

@@ -11,7 +11,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.br.ifma.logeasy.domain.Aluno;
+import com.br.ifma.logeasy.domain.AmbienteAvatar;
+import com.br.ifma.logeasy.domain.Avatar;
 import com.br.ifma.logeasy.domain.Curso;
+import com.br.ifma.logeasy.domain.Nivel;
 import com.br.ifma.logeasy.domain.Professor;
 
 public class JerseyClient {
@@ -101,12 +104,41 @@ public class JerseyClient {
 	    client.close();
 	}
 	
+	public void getNiveis() {
+		Client client = ClientBuilder.newClient();
+		WebTarget base = client.target("http://localhost:8080/logeasy-webservice/curso");
+		WebTarget details = base.path("niveis");
+		List<Nivel> list = details.request(MediaType.APPLICATION_JSON).get(new GenericType<List<Nivel>>() {});
+		
+	    list.stream().forEach(nivel -> System.out.println(nivel.getDescricao()+", "+ nivel.getAmbiente().getElemento()));
+	    
+	    client.close();
+	}
+	
+	public void getAvatars() {
+		Client client = ClientBuilder.newClient();
+		WebTarget base = client.target("http://localhost:8080/logeasy-webservice/curso");
+		WebTarget details = base.path("avatars");
+		List<Avatar> list = details.request(MediaType.APPLICATION_JSON).get(new GenericType<List<Avatar>>() {});
+		
+	    list.stream().forEach(avatar -> System.out.println(avatar.getCaracteristica()+", "+ avatar.getNome()));
+	    for(Avatar av: list) {
+	    	for(AmbienteAvatar aav: av.getAmbientesAvatar()) {
+	    		System.out.println("Ambiente" + aav.getFalaInicialNivel());
+	    		System.out.println("Ambiente" + aav.getAmbiente().getDescricao());
+	    	}
+	    }
+	    client.close();
+	}
+	
 	public static void main(String[] args) {
 		JerseyClient jerseyClient = new JerseyClient();
 	    //jerseyClient.getProfessorDetails();
 		//jerseyClient.getProfessorById(1);
 		//jerseyClient.getCursoById(1);
-		jerseyClient.getAlunos();
+		jerseyClient.getNiveis();
+		//jerseyClient.getAvatars();
+		//jerseyClient.getAlunos();
 		
 		/*
 		User user = new User();

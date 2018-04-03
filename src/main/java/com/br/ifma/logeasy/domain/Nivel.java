@@ -79,14 +79,6 @@ public class Nivel extends AbstractDomainClass implements Serializable {
 		this.qtdPontosInicial = qtdPontosInicial;
 	}
 
-	public Ambiente getTema() {
-		return this.ambiente;
-	}
-
-	public void setTema(Ambiente tema) {
-		this.ambiente = tema;
-	}
-
 	public Ambiente getAmbiente() {
 		return ambiente;
 	}
