@@ -2,6 +2,8 @@ package com.br.ifma.logeasy.endpoint;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -50,7 +52,7 @@ public class AlunoEndpoint {
 		return Response.ok(aluno).build();
 	}
 	
-	@POST
+/*	@POST
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addAluno(Aluno aluno) {
@@ -61,7 +63,7 @@ public class AlunoEndpoint {
 		
 		Avatar avatar = avatarService.getAvatarById(aluno.getAvatar().getId());
 		novoAluno.setAvatar(avatar);
-		novoAluno.setAlternativasAluno(new ArrayList<AlternativaAluno>());
+		novoAluno.setAlternativasAluno(new HashSet<AlternativaAluno>());
 		
 		for(AlternativaAluno aa: aluno.getAlternativasAluno()) {
 			item = aa;
@@ -73,7 +75,7 @@ public class AlunoEndpoint {
 		 
 		alunoService.saveAluno(novoAluno);
         return Response.created(URI.create("/logeasy-webservice/aluno/"+ aluno.getId())).build();
-	}	
+	}	*/
 	
 	@POST
 	@Path("/addAlunos")
@@ -93,6 +95,7 @@ public class AlunoEndpoint {
 			novoAluno.setAlternativasAluno(new ArrayList<AlternativaAluno>());
 			
 			for(AlternativaAluno aa: a.getAlternativasAluno()) {
+				System.out.println("Alternativa:===> " + aa.getId() + " , " + aa.getAlternativa().getTexto() + " , " + aa.getAlternativa().getId());
 				item = aa;
 				item.setId(null);
 				item.setAluno(novoAluno);
@@ -100,9 +103,15 @@ public class AlunoEndpoint {
 				novoAluno.getAlternativasAluno().add(item);
 				System.out.println("Alternativa_aluno:===> " + item.getAlternativa().getTexto() + " , " + item.getAluno().getNome());
 			}
-			 
+			//verificar se já existe um aluno com o mesmo email no banco
+			Iterable<Aluno> todosAlunos = alunoService.listAllAlunos();
+			for(Aluno aluno : todosAlunos) {
+				if(a.getUsuario().getEmail().equals(aluno.getUsuario().getEmail())) {
+					alunoService.deleteAluno(aluno.getId());
+				}
+			}
 			alunoService.saveAluno(novoAluno);
-			System.out.println("Aluno:===> " + a.getNome());
+			System.out.println("Aluno:===> " + a.getNome() + " , " + a.getAlternativasAluno().size());
 		}
 		return Response.created(URI.create("/logeasy-webservice/aluno/1")).build();
 	}

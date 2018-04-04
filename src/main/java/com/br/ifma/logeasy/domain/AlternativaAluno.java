@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -27,13 +28,12 @@ public class AlternativaAluno extends AbstractDomainClass implements Serializabl
 	private static final long serialVersionUID = 1L;
 
 	//bi-directional many-to-one association to Alternativa
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = CascadeType.MERGE, fetch=FetchType.EAGER)
 	@JoinColumn(name="idalternativa")
-	@JsonIgnore
 	private Alternativa alternativa;
 
 	//bi-directional many-to-one association to Aluno
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = CascadeType.MERGE, fetch=FetchType.EAGER)
 	@JoinColumn(name="idaluno")
 	private Aluno aluno;
 	
