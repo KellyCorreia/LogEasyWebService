@@ -31,11 +31,12 @@ public class Alternativa extends AbstractDomainClass implements Serializable {
 	//bi-directional many-to-one association to Questao
 	@ManyToOne
 	@JoinColumn(name="idquestao")
+	@JsonIgnore
 	private Questao questao;
 
 	//bi-directional many-to-one association to AlternativaAluno
 	@OneToMany(mappedBy="alternativa", fetch = FetchType.EAGER)
-	//@JsonIgnore
+	@JsonIgnore
 	private List<AlternativaAluno> alternativaAlunos;
 
 	public Alternativa() {

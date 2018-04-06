@@ -2,8 +2,6 @@ package com.br.ifma.logeasy.endpoint;
 
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.br.ifma.logeasy.domain.AlternativaAluno;
 import com.br.ifma.logeasy.domain.Aluno;
 import com.br.ifma.logeasy.domain.Avatar;
-import com.br.ifma.logeasy.domain.Professor;
 import com.br.ifma.logeasy.services.AlternativaService;
 import com.br.ifma.logeasy.services.AlunoService;
 import com.br.ifma.logeasy.services.AvatarService;
@@ -79,8 +76,9 @@ public class AlunoEndpoint {
 	
 	@POST
 	@Path("/addAlunos")
+	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response addAlunos(@RequestBody List<Aluno> alunos) {
+	public Response addAlunos(@RequestBody Aluno[] alunos) {
 		Aluno novoAluno = null;
 		Avatar avatar = null;
 		AlternativaAluno item = null;
